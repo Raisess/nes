@@ -1,12 +1,14 @@
 #include "Ram.h"
 
-Computer::Ram::Ram() {
+Computer::Ram::Ram(void) {
   const uint8_t ram_size =  this->memory.size();
 
   for (uint8_t i = 0x00; i < ram_size; i++) {
     this->memory[i] = 0x00;
   }
 }
+
+Computer::Ram::~Ram(void) {}
 
 void Computer::Ram::write(uint16_t address, uint8_t value) {
   this->memory[address] = value;

@@ -1,6 +1,7 @@
 #include "Bus.h"
 
-Computer::Bus::Bus() {}
+Computer::Bus::Bus(void) {}
+Computer::Bus::~Bus(void) {}
 
 void Computer::Bus::attach_to_ram(Ram *ram) {
   this->ram = ram;

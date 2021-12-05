@@ -10,10 +10,11 @@ class Bus {
     Ram *ram = nullptr;
 
   public:
-    Bus();
-    ~Bus();
+    Bus(void);
+    ~Bus(void);
 
     void attach_to_ram(Ram *ram);
+
     void write(uint16_t address, uint8_t value);
     uint8_t read(uint16_t address);
 };
