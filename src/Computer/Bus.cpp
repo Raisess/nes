@@ -8,7 +8,7 @@ void Computer::Bus::attach_to_ram(Ram *ram) {
 }
 
 void Computer::Bus::write(uint16_t address, uint8_t value) {
-  if (address >= 0x00 && address <= 0xFFFF) {
+  if ((address >= 0x00 && address <= 0xFFFF) && value <= 0xFF) {
     this->ram->write(address, value);
   }
 }
