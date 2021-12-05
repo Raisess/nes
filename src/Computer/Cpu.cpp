@@ -33,10 +33,10 @@ void Computer::Cpu::clock() {
 
     this->clock_cycles = instruction.clock_cycles;
 
-    uint8_t address_mode_cycles = instruction.address_mode();
-    uint8_t execution_cycles = instruction.execute();
+    // uint8_t address_mode_cycles = instruction.address_mode();
+    // uint8_t execution_cycles = instruction.execute();
 
-    this->clock_cycles += (address_mode_cycles & execution_cycles);
+    // this->clock_cycles += (address_mode_cycles & execution_cycles);
   }
 
   this->clock_cycles--;
@@ -52,6 +52,6 @@ void Computer::Cpu::reset(void) {
   this->stack_pointer = 0x00;
   this->program_counter = 0x00;
 
-  this->instruction_entry_point_address = 0x00;
-  this->instruction_relative_point_address = 0x00;
+  this->instruction_absolute_address = 0x00;
+  this->instruction_relative_address = 0x00;
 }

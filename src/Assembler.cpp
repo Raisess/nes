@@ -45,6 +45,106 @@ void Assembler::attach_to_cpu(Computer::Cpu *cpu) {
 }
 
 // addressing modes
-bool Assembler::AM_IMP() {
+uint8_t Assembler::AM_ABI() {
+  return 0;
+}
+
+uint8_t Assembler::AM_ABS() {
+  uint16_t lower = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+  uint16_t higher = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+
+  this->cpu->instruction_absolute_address = (higher << 8) | lower;
+  return 0;
+}
+
+uint8_t Assembler::AM_ABX() {
+  uint16_t lower = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+  uint16_t higher = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+
+  this->cpu->instruction_absolute_address = (higher << 8) | lower;
+  this->cpu->instruction_absolute_address += this->cpu->register_x;
+
+  if ((this->cpu->instruction_absolute_address & 0xFF00) != (higher << 8)) {
+    return 1;
+  }
+
+  return 0;
+}
+
+uint8_t Assembler::AM_ABY() {
+  uint16_t lower = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+  uint16_t higher = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+
+  this->cpu->instruction_absolute_address = (higher << 8) | lower;
+  this->cpu->instruction_absolute_address += this->cpu->register_y;
+
+  if ((this->cpu->instruction_absolute_address & 0xFF00) != (higher << 8)) {
+    return 1;
+  }
+
+  return 0;
+}
+
+uint8_t Assembler::AM_ACC() {
+  return 0;
+}
+
+uint8_t Assembler::AM_IMM() {
+  this->cpu->instruction_absolute_address = this->cpu->program_counter;
+  return 0;
+}
+
+uint8_t Assembler::AM_IMP() {
+  this->cpu->fetched = this->cpu->accumulator;
+  return 0;
+}
+
+uint8_t Assembler::AM_IND() {
+  return 0;
+}
+
+uint8_t Assembler::AM_INX() {
+  return 0;
+}
+
+uint8_t Assembler::AM_INY() {
+  return 0;
+}
+
+uint8_t Assembler::AM_REL() {
+  this->cpu->instruction_relative_address = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+
+  if (this->cpu->instruction_relative_address & 0x80) {
+    this->cpu->instruction_relative_address |= 0xFF00;
+  }
+
+  return 0;
+}
+
+uint8_t Assembler::AM_ZP() {
+  this->cpu->instruction_absolute_address = this->cpu->read(this->cpu->program_counter);
+  this->cpu->program_counter++;
+  this->cpu->instruction_absolute_address &= 0x00FF;
+  return 0;
+}
+
+uint8_t Assembler::AM_ZPX() {
+  this->cpu->instruction_absolute_address = this->cpu->read(this->cpu->program_counter + this->cpu->register_x);
+  this->cpu->program_counter++;
+  this->cpu->instruction_absolute_address &= 0x00FF;
+  return 0;
+}
+
+uint8_t Assembler::AM_ZPY() {
+  this->cpu->instruction_absolute_address = this->cpu->read(this->cpu->program_counter + this->cpu->register_y);
+  this->cpu->program_counter++;
+  this->cpu->instruction_absolute_address &= 0x00FF;
   return 0;
 }

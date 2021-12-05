@@ -28,8 +28,9 @@ class Cpu {
     uint8_t clock_cycles = 0x00;
     uint8_t opcode = 0x00;
 
-    uint16_t instruction_entry_point_address = 0x00;
-    uint16_t instruction_relative_point_address = 0x00;
+    uint8_t fetched = 0x00;
+    uint16_t instruction_absolute_address = 0x00;
+    uint16_t instruction_relative_address = 0x00;
 
     // registers
     uint8_t flag = 0x00;
