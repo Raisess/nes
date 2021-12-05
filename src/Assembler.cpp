@@ -44,6 +44,231 @@ void Assembler::attach_to_cpu(Computer::Cpu *cpu) {
   this->cpu = cpu;
 }
 
+// opcodes
+uint8_t Assembler::ADC() {
+  return 0;
+}
+
+uint8_t Assembler::AND() {
+  return 0;
+}
+
+uint8_t Assembler::ASL() {
+  return 0;
+}
+
+uint8_t Assembler::BCC() {
+  return 0;
+}
+
+uint8_t Assembler::BCS() {
+  return 0;
+}
+
+uint8_t Assembler::BEO() {
+  return 0;
+}
+
+uint8_t Assembler::BIT() {
+  return 0;
+}
+
+uint8_t Assembler::BMI() {
+  return 0;
+}
+
+uint8_t Assembler::BNE() {
+  return 0;
+}
+
+uint8_t Assembler::BPL() {
+  return 0;
+}
+
+uint8_t Assembler::BRK() {
+  return 0;
+}
+
+uint8_t Assembler::BVC() {
+  return 0;
+}
+
+uint8_t Assembler::BVS() {
+  return 0;
+}
+
+uint8_t Assembler::CLC() {
+  return 0;
+}
+
+uint8_t Assembler::CLD() {
+  return 0;
+}
+
+uint8_t Assembler::CLI() {
+  return 0;
+}
+
+uint8_t Assembler::CLV() {
+  return 0;
+}
+
+uint8_t Assembler::CMP() {
+  return 0;
+}
+
+uint8_t Assembler::CPX() {
+  return 0;
+}
+
+uint8_t Assembler::CPY() {
+  return 0;
+}
+
+uint8_t Assembler::DEC() {
+  return 0;
+}
+
+uint8_t Assembler::DEX() {
+  return 0;
+}
+
+uint8_t Assembler::DEY() {
+  return 0;
+}
+
+uint8_t Assembler::EOR() {
+  return 0;
+}
+
+uint8_t Assembler::INC() {
+  return 0;
+}
+
+uint8_t Assembler::INX() {
+  return 0;
+}
+
+uint8_t Assembler::INY() {
+  return 0;
+}
+
+uint8_t Assembler::JMP() {
+  return 0;
+}
+
+uint8_t Assembler::JSR() {
+  return 0;
+}
+
+uint8_t Assembler::LDA() {
+  return 0;
+}
+
+uint8_t Assembler::LDX() {
+  return 0;
+}
+
+uint8_t Assembler::LDY() {
+  return 0;
+}
+
+uint8_t Assembler::LSR() {
+  return 0;
+}
+
+uint8_t Assembler::NOP() {
+  return 0;
+}
+
+uint8_t Assembler::ORA() {
+  return 0;
+}
+
+uint8_t Assembler::PHA() {
+  return 0;
+}
+
+uint8_t Assembler::PHP() {
+  return 0;
+}
+
+uint8_t Assembler::PLA() {
+  return 0;
+}
+
+uint8_t Assembler::PLP() {
+  return 0;
+}
+
+uint8_t Assembler::ROL() {
+  return 0;
+}
+
+uint8_t Assembler::RTI() {
+  return 0;
+}
+
+uint8_t Assembler::RTS() {
+  return 0;
+}
+
+uint8_t Assembler::SBC() {
+  return 0;
+}
+
+uint8_t Assembler::SEC() {
+  return 0;
+}
+
+uint8_t Assembler::SED() {
+  return 0;
+}
+
+uint8_t Assembler::SEI() {
+  return 0;
+}
+
+uint8_t Assembler::STA() {
+  return 0;
+}
+
+uint8_t Assembler::STX() {
+  return 0;
+}
+
+uint8_t Assembler::STY() {
+  return 0;
+}
+
+uint8_t Assembler::TAX() {
+  return 0;
+}
+
+uint8_t Assembler::TAY() {
+  return 0;
+}
+
+uint8_t Assembler::TSX() {
+  return 0;
+}
+
+uint8_t Assembler::TXA() {
+  return 0;
+}
+
+uint8_t Assembler::TXS() {
+  return 0;
+}
+
+uint8_t Assembler::TYA() {
+  return 0;
+}
+
+uint8_t Assembler::XXX() {
+  return 0;
+}
+
 // addressing modes
 uint8_t Assembler::AM_ABI() {
   return 0;
