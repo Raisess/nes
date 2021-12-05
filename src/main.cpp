@@ -3,7 +3,7 @@
 #include "Computer/Ppu.h"
 #include "Computer/Ram.h"
 #include "Computer/Bus.h"
-#include "Assembly.h"
+#include "Assembler.h"
 
 int main(void) {
   Computer::Ram *ram = new Computer::Ram();
@@ -11,7 +11,7 @@ int main(void) {
   Computer::Cpu *cpu = new Computer::Cpu();
   Computer::Ppu *ppu = new Computer::Ppu();
 
-  Assembly *assembler = new Assembly();
+  Assembler *assembler = new Assembler();
 
   bus->attach_to_ram(ram);
   cpu->attach_to_bus(bus);

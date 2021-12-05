@@ -1,14 +1,27 @@
 #pragma once
 
+#include <cstdint>
+#include <string>
 #include "Computer/Cpu.h"
 
-class Assembly {
+class Assembler {
   private:
     Computer::Cpu *cpu = nullptr;
 
   public:
-    Assembly(void);
-    ~Assembly(void);
+    Assembler(void);
+    ~Assembler(void);
+
+    typedef struct Instruction {
+      std::string name;
+      uint8_t clock_cycles = 0x00;
+
+      // if the instruction operation need aditional cycles return true
+      // for the operation
+      bool(Assembler::*execute)(void) = nullptr; // execute a opcode function
+      bool(Assembler::*address_mode)(void) = nullptr;
+    } Instruction;
+    static std::vector<Assembler::Instruction> instructions;
 
     void attach_to_cpu(Computer::Cpu *cpu);
 

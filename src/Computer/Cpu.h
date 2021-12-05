@@ -15,22 +15,11 @@ enum FLAGS {
   Negative = (1 << 7),
 };
 
-typedef struct Instruction {
-  std::string name;
-  uint8_t clock_cycles = 0x00;
-
-  // if the instruction operation need aditional cycles return true
-  // for the operation
-  bool(*execute)(void) = nullptr; // execute a opcode function
-  bool(*address_mode)(void) = nullptr;
-} Instruction;
-
 namespace Computer {
 
 class Cpu {
   private:
     Bus *bus = nullptr;
-    std::vector<Instruction> instructions;
 
   public:
     Cpu(void);

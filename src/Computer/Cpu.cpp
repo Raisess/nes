@@ -1,44 +1,7 @@
 #include "Cpu.h"
-#include "../Assembly.h"
+#include "../Assembler.h"
 
-Computer::Cpu::Cpu(void) {
-  this->instructions = {
-    // 0 to F
-    { "BRK_IMP", 0x07, &Assembly::BRK, &Assembly::AM_IMP },
-    { "ORA_INX", 0x06, &Assembly::ORA, &Assembly::AM_INX },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "ORA_ZP", 0x03, &Assembly::ORA, &Assembly::AM_ZP },
-    { "ASL_ZP", 0x05 , &Assembly::ASL, &Assembly::AM_ZP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "PHP_IMP", 0x03 , &Assembly::PHP, &Assembly::AM_IMP },
-    { "ORA_IMM", 0x02 , &Assembly::ORA, &Assembly::AM_IMM },
-    { "ASL_ACC", 0x02 , &Assembly::ASL, &Assembly::AM_ACC },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "ORA_ABS", 0x04, &Assembly::ORA, &Assembly::AM_ABS },
-    { "ASL_ABS", 0x06 , &Assembly::ASL, &Assembly::AM_ABS },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    // 1 to F
-    { "BPL_REL", 0x02 , &Assembly::BPL, &Assembly::AM_REL },
-    { "ORA_INY", 0x05 , &Assembly::ORA, &Assembly::AM_INY },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "ORA_ZPX", 0x04 , &Assembly::ORA, &Assembly::AM_ZPX },
-    { "ASL_ZPX", 0x06 , &Assembly::ASL, &Assembly::AM_ZPX },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "CLC_IMP", 0x02 , &Assembly::CLC, &Assembly::AM_IMP },
-    { "ORA_ABY", 0x04 , &Assembly::ORA, &Assembly::AM_ABY },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-    { "ORA_ABX", 0x04 , &Assembly::ORA, &Assembly::AM_ABX },
-    { "ASL_ABX", 0x04 , &Assembly::ASL, &Assembly::AM_ABX },
-    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
-  };
-}
+Computer::Cpu::Cpu(void) {}
 Computer::Cpu::~Cpu(void) {}
 
 void Computer::Cpu::set_flag(FLAGS flag, bool value) {
@@ -61,12 +24,12 @@ uint16_t Computer::Cpu::read(uint8_t address) {
   return this->bus->read(address);
 }
 
-void Computer::Cpu::clock(void) {
+void Computer::Cpu::clock() {
   if (this->clock_cycles == 0x00) {
     this->opcode = this->read(this->program_counter);
     this->program_counter++;
 
-    Instruction instruction = this->instructions[this->opcode];
+    Assembler::Instruction instruction = Assembler::instructions[this->opcode];
 
     this->clock_cycles = instruction.clock_cycles;
 
