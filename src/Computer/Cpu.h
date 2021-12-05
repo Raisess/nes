@@ -15,7 +15,7 @@ enum FLAGS {
   Negative = (1 << 7),
 };
 
-typedef struct Instrucion {
+typedef struct Instruction {
   std::string name;
   uint8_t clock_cycles = 0x00;
 
@@ -23,19 +23,19 @@ typedef struct Instrucion {
   // for the operation
   bool(*execute)(void) = nullptr; // execute a opcode function
   bool(*address_mode)(void) = nullptr;
-} Instrucion;
+} Instruction;
 
 namespace Computer {
 
 class Cpu {
   private:
     Bus *bus = nullptr;
+    std::vector<Instruction> instructions;
 
   public:
     Cpu(void);
     ~Cpu(void);
 
-    std::vector<Instrucion> instructions;
     uint8_t clock_cycles = 0x00;
     uint8_t opcode = 0x00;
 

@@ -83,7 +83,7 @@ class Assembly {
     bool AM_INY(); // indirect indexed addressing Y [(IND, Y)]
     bool AM_IMM(); // immediate address
     bool AM_IMP(); // implied address [Implied]
-    bool AM_RLT(); // relative addressing [Relative]
+    bool AM_REL(); // relative addressing [Relative]
     bool AM_ZP();  // zero page addressing
     bool AM_ZPX(); // indexed zero page addressing X
     bool AM_ZPY(); // ... Y

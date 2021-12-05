@@ -2,7 +2,42 @@
 #include "../Assembly.h"
 
 Computer::Cpu::Cpu(void) {
-  this->instructions = {};
+  this->instructions = {
+    // 0 to F
+    { "BRK_IMP", 0x07, &Assembly::BRK, &Assembly::AM_IMP },
+    { "ORA_INX", 0x06, &Assembly::ORA, &Assembly::AM_INX },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "ORA_ZP", 0x03, &Assembly::ORA, &Assembly::AM_ZP },
+    { "ASL_ZP", 0x05 , &Assembly::ASL, &Assembly::AM_ZP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "PHP_IMP", 0x03 , &Assembly::PHP, &Assembly::AM_IMP },
+    { "ORA_IMM", 0x02 , &Assembly::ORA, &Assembly::AM_IMM },
+    { "ASL_ACC", 0x02 , &Assembly::ASL, &Assembly::AM_ACC },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "ORA_ABS", 0x04, &Assembly::ORA, &Assembly::AM_ABS },
+    { "ASL_ABS", 0x06 , &Assembly::ASL, &Assembly::AM_ABS },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    // 1 to F
+    { "BPL_REL", 0x02 , &Assembly::BPL, &Assembly::AM_REL },
+    { "ORA_INY", 0x05 , &Assembly::ORA, &Assembly::AM_INY },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "ORA_ZPX", 0x04 , &Assembly::ORA, &Assembly::AM_ZPX },
+    { "ASL_ZPX", 0x06 , &Assembly::ASL, &Assembly::AM_ZPX },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "CLC_IMP", 0x02 , &Assembly::CLC, &Assembly::AM_IMP },
+    { "ORA_ABY", 0x04 , &Assembly::ORA, &Assembly::AM_ABY },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+    { "ORA_ABX", 0x04 , &Assembly::ORA, &Assembly::AM_ABX },
+    { "ASL_ABX", 0x04 , &Assembly::ASL, &Assembly::AM_ABX },
+    { "XXX", 0x02, &Assembly::XXX, &Assembly::AM_IMP },
+  };
 }
 Computer::Cpu::~Cpu(void) {}
 
@@ -31,10 +66,12 @@ void Computer::Cpu::clock(void) {
     this->opcode = this->read(this->program_counter);
     this->program_counter++;
 
-    this->clock_cycles = this->instructions[this->opcode].clock_cycles;
+    Instruction instruction = this->instructions[this->opcode];
 
-    uint8_t address_mode_cycles = this->instructions[this->opcode].address_mode();
-    uint8_t execution_cycles = this->instructions[this->opcode].execute();
+    this->clock_cycles = instruction.clock_cycles;
+
+    uint8_t address_mode_cycles = instruction.address_mode();
+    uint8_t execution_cycles = instruction.execute();
 
     this->clock_cycles += (address_mode_cycles & execution_cycles);
   }
