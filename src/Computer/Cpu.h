@@ -1,7 +1,7 @@
 #pragma once
 
-#include <array>
 #include <string>
+#include <vector>
 #include "Bus.h"
 
 enum FLAGS {
@@ -19,8 +19,10 @@ typedef struct Instrucion {
   std::string name;
   uint8_t clock_cycles = 0x00;
 
-  uint8_t(*execute)(void) = nullptr; // execute a opcode function
-  uint8_t(*address_mode)(void) = nullptr;
+  // if the instruction operation need aditional cycles return true
+  // for the operation
+  bool(*execute)(void) = nullptr; // execute a opcode function
+  bool(*address_mode)(void) = nullptr;
 } Instrucion;
 
 namespace Computer {
@@ -28,6 +30,12 @@ namespace Computer {
 class Cpu {
   private:
     Bus *bus = nullptr;
+
+  public:
+    Cpu(void);
+    ~Cpu(void);
+
+    std::vector<Instrucion> instructions;
     uint8_t clock_cycles = 0x00;
     uint8_t opcode = 0x00;
 
@@ -42,31 +50,19 @@ class Cpu {
     uint8_t stack_pointer = 0x00;
     uint8_t program_counter = 0x00;
 
-    void set_flag(FLAGS flag, bool value);
-    uint8_t get_flag(void);
-   
-  public:
-    Cpu(void);
-    ~Cpu(void);
-
     void attach_to_bus(Bus *bus);
 
     void write(uint8_t address, uint16_t value);
     uint16_t read(uint8_t address);
 
+    // for assembly use methods
+    void set_flag(FLAGS flag, bool value);
+    uint8_t get_flag(void);
     // external signals
     void clock(void);
     void reset(void);
     void interrupt_request(void);
     void non_maskable(void);
-
-    std::array<Instrucion, 56> instructions;
-
-    // opcodes (56)
-    // impl later
-
-    // addressing modes (12)
-    // impl later
 };
 
 }

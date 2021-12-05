@@ -1,4 +1,5 @@
 #include "Cpu.h"
+#include "../Assembly.h"
 
 Computer::Cpu::Cpu(void) {
   this->instructions = {};
@@ -35,7 +36,7 @@ void Computer::Cpu::clock(void) {
     uint8_t address_mode_cycles = this->instructions[this->opcode].address_mode();
     uint8_t execution_cycles = this->instructions[this->opcode].execute();
 
-    this->clock_cycles += (address_mode_cycles + execution_cycles);
+    this->clock_cycles += (address_mode_cycles & execution_cycles);
   }
 
   this->clock_cycles--;
